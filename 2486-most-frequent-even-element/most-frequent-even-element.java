@@ -1,26 +1,15 @@
 class Solution {
+    private static final int[] freq = new int[100001];
     public int mostFrequentEven(int[] nums) {
-
-        int[] count = new int[100001];
-
-        
-        for (int num : nums) {
-            if (num % 2 == 0) {
-                count[num]++;
-            }
+        for(int num : nums) freq[num] = 0;
+        int min = 0, index = 0;
+        for(int num : nums) {
+            if(num%2 == 1) continue;
+            if(freq[num]++ == min) {
+                min++;
+                index = num;
+            }else if(freq[num] == min && index > num) index = num;
         }
-
-        int answer = -1;
-        int maxCount = 0;
-
-        for (int i = 0; i <= 100000; i += 2) {
-
-            if (count[i] > maxCount) {
-                maxCount = count[i];
-                answer = i;
-            }
-        }
-
-        return answer;
+        return min == 0 ? -1 : index;
     }
 }
