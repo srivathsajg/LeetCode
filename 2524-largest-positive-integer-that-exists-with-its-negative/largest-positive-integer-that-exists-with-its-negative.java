@@ -1,32 +1,18 @@
 class Solution {
-    public int findMaxK(int[] nums) {
-
-        boolean[] present = new boolean[1001];
-
-        for (int num : nums) {
-            present[Math.abs(num)] = true;
+    public int findMaxK(int[] arr) {
+    HashSet<Integer> set = new HashSet<>();
+    for(int ele : arr){
+        if(ele<0)
+        set.add(ele);
+    }
+    int mx=Integer.MIN_VALUE;
+    for(int i=0; i<arr.length; i++){
+        if(arr[i]>0 && arr[i]>mx){
+        if(set.contains(-arr[i]))
+        mx=arr[i];
         }
-
-        for (int k = 1000; k >= 1; k--) {
-
-            boolean positive = false;
-            boolean negative = false;
-
-            for (int num : nums) {
-                if (num == k) {
-                    positive = true;
-                }
-
-                if (num == -k) {
-                    negative = true;
-                }
-            }
-
-            if (positive && negative) {
-                return k;
-            }
-        }
-
-        return -1;
+    } 
+    if(mx==Integer.MIN_VALUE) return -1;
+    return mx; 
     }
 }
